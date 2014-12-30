@@ -11,7 +11,20 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', ['as' => 'home', 'uses' => 'taskController@index']);
+Route::resource('tasks', 'taskController');
+
+
+
+/*
+Route::get('/', array('as' => 'home', 'uses'=> 'taskController@getIndex' ));
+
+
+Route::resource('tasks', 'taskController');
+Route::model('tasks', 'Task');
+
+Route::bind('tasks', function($value, $route) {
+	return Task::whereSlug($value)->first();
 });
+
+*/
