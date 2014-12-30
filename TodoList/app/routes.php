@@ -12,6 +12,7 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'taskController@index']);
+Route::post('tasks/update/{id}', array('uses' => 'taskController@update'));
 Route::resource('tasks', 'taskController');
 
 

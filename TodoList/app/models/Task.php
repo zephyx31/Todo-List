@@ -10,10 +10,6 @@ class Task extends Eloquent  {
 
 	protected $table = 'tasks';
 
-	public function getName()
-{
-return $this->name;
-}
-
+protected $guarded = array();
 	
 }

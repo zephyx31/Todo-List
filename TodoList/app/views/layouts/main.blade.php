@@ -46,6 +46,10 @@
 <!--/Contenu -->
 
     <div class="container">
+
+
+        
+ @yield('main')
 @yield("content")
 
  

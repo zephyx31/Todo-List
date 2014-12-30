@@ -10,21 +10,39 @@ public function getIndex()
 	}
 
 
+	 public function DeleteOrDone()
+    {
+      
+        if(Input::post('delete')) {
+            $this->destroy(); 
+        } elseif(Input::post('done')) {
+            $this->done(); 
+        }
+
+    }
+
+    public function done($id){
+$tasks = Task::find($id);
+$tasks->save();
+
+	return View::make('tasks.index', compact('tasks'));
+    }
+
+
 
 
 
 public function index()
 {
-$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
+
+	$tasks = Task::all();
+
+      
+//$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
 return View::make('tasks.index', compact('tasks'));
 }
 
 
-	//public function index()
-	//{
-		//return View::make('tasks.index');
-	//	$this->layout->content = View::make('tasks.index');
-	//}
 
 
 	/**
@@ -35,7 +53,9 @@ return View::make('tasks.index', compact('tasks'));
 	public function create()
 	{
 		//return View::make('tasks.create');
-		$this->layout->content = View::make('tasks.create');
+
+
+		return  View::make('tasks.create');
 	}
 
 
@@ -44,24 +64,32 @@ return View::make('tasks.index', compact('tasks'));
 	 *
 	 * @return Response
 	 */
-	public function store()
+public function store()
+    {
+        $input = Input::all();
+      
+
+        if ($input != null)
+        {
+            Task::create($input);
+
+            return Redirect::route('tasks.index');
+        }
+
+        return Redirect::route('tasks.create')
+            ->with('message', 'There were validation errors.');
+    }
+ 
+
+public function show($id)
 	{
-		//
+
+		$tasks = Task::findOrFail($id);
+		//return View::make('tasks.edit');
+	return View::make('tasks.show', compact('tasks'));
 	}
 
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(Task $tasks)
-	{
-		//return View::make('tasks.show');
-		$this->layout->content = View::make('tasks.show', compact('tasks'));
-	}
-
+	
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -75,29 +103,23 @@ return View::make('tasks.index', compact('tasks'));
 		$this->layout->content = View::make('tasks.edit');
 	}
 
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update($id)
 	{
-		//
+		$tasks = Task::find($id);
+		$tasks->completed=1;
+		$tasks->save();
+
+	 return Redirect::route('tasks.index');
 	}
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+		public function destroy($id)
+		{
+				$tasks = Task::find($id);
+$tasks->delete();
+	return View::make('tasks.index', compact('tasks'));
 
+
+}
 
 }
