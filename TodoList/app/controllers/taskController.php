@@ -2,37 +2,28 @@
 
 class taskController extends BaseController {
 
-public function getIndex()
+	public function getIndex()
 	{
-		//return View::make('tasks.index');
-		return View::make("home");
-			
+			//return View::make('tasks.index');
+			return View::make("home");
+				
 	}
 
+	public function index()
+	{
 
-	
+			$tasks = Task::all();
 
-
-
-
-			public function index()
-			{
-
-				$tasks = Task::all();
-
-			      
-			//$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
-			return View::make('tasks.index', compact('tasks'));
-			}
-
-
-
+				      
+		//$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
+		return View::make('tasks.index', compact('tasks'));
+	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+	* Show the form for creating a new resource.
+	*
+	* @return Response
+	*/
 	public function create()
 	{
 		//return View::make('tasks.create');
@@ -47,7 +38,7 @@ public function getIndex()
 	 *
 	 * @return Response
 	 */
-public function store()
+	public function store()
     {
         $input = Input::all();
       
@@ -64,12 +55,12 @@ public function store()
     }
  
 
-public function show($id)
+	public function show($id)
 	{
 
 		$tasks = Task::findOrFail($id);
 		//return View::make('tasks.show');
-	return View::make('tasks.show', compact('tasks'));
+		return View::make('tasks.show', compact('tasks'));
 	}
 
 	
@@ -92,17 +83,17 @@ public function show($id)
 		$tasks->completed=1;
 		$tasks->save();
 
-	 return Redirect::route('tasks.index');
+	return Redirect::route('tasks.index');
 	}
 
 
-		public function destroy($id)
-		{
-				$tasks = Task::find($id);
-				$tasks->delete();
-				return View::make('tasks.index', compact('tasks'));
+	public function destroy($id)
+	{
+		$tasks = Task::find($id);
+		$tasks->delete();
+		return View::make('tasks.index', compact('tasks'));
 
 
-}
+	}
 
 }
