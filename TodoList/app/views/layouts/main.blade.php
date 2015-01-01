@@ -36,27 +36,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">My Todo-List</a>
         </div>
-       
       </div>
     </nav>
-
    
-<!--/Contenu -->
+    <!--/Contenu -->
 
     <div class="container">
 
-
-        
- @yield('main')
-@yield("content")
-
- 
+      @yield("content")
 
     </div>
-
-
     <footer> </footer>
   </body>
 </html>

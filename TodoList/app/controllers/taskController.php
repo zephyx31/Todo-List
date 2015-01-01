@@ -10,37 +10,20 @@ public function getIndex()
 	}
 
 
-	 public function DeleteOrDone()
-    {
-      
-        if(Input::post('delete')) {
-            $this->destroy(); 
-        } elseif(Input::post('done')) {
-            $this->done(); 
-        }
-
-    }
-
-    public function done($id){
-$tasks = Task::find($id);
-$tasks->save();
-
-	return View::make('tasks.index', compact('tasks'));
-    }
+	
 
 
 
 
+			public function index()
+			{
 
-public function index()
-{
+				$tasks = Task::all();
 
-	$tasks = Task::all();
-
-      
-//$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
-return View::make('tasks.index', compact('tasks'));
-}
+			      
+			//$tasks = Task::orderby('completed')->orderby('completed', 'desc')->orderby('created_at', 'desc')->get();
+			return View::make('tasks.index', compact('tasks'));
+			}
 
 
 
@@ -85,7 +68,7 @@ public function show($id)
 	{
 
 		$tasks = Task::findOrFail($id);
-		//return View::make('tasks.edit');
+		//return View::make('tasks.show');
 	return View::make('tasks.show', compact('tasks'));
 	}
 
@@ -116,8 +99,8 @@ public function show($id)
 		public function destroy($id)
 		{
 				$tasks = Task::find($id);
-$tasks->delete();
-	return View::make('tasks.index', compact('tasks'));
+				$tasks->delete();
+				return View::make('tasks.index', compact('tasks'));
 
 
 }

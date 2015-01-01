@@ -9,7 +9,6 @@ class Task extends Eloquent  {
 
 
 	protected $table = 'tasks';
-
-protected $guarded = array();
+	protected $guarded = array();
 	
 }
